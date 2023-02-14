@@ -64,6 +64,7 @@ html {
   font-size: 2.8rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   transition: 0.5s all;
+  /* border: 1px solid black; */
 }
 
 .numpad-button:active {
@@ -89,7 +90,8 @@ html {
   width: 100%;
   border-radius: 12px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  
+  text-align: center;
+  font-size: 5rem;
 }
 
 /*  */
