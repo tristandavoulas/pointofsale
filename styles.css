@@ -63,13 +63,17 @@ html {
   color: #444;
   font-size: 2.8rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  transition: 0.1s all;
+  transition: 0.5s all;
 }
 
 .numpad-button:active {
   box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 64px;
   color: white;
   background-color: black;
+}
+
+.numpad-button:hover {
+  transform: translateY(-8px);
 }
 
 .pin-area {
