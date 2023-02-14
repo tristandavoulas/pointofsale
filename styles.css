@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  /* background-color: #D3D3D3; */
+  background-color: rgb(120, 0, 0);
+}
+
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+/* CSS Variables */
+:root {
+  --bgColor: white;
+}
+
+/* Grid Element Modifiers  */
+/* These styles will purely affect certain grid container elements */
+
+.span-til-end {
+  grid-column-start: -4;
+  grid-column-end: -1;
+}
+
+/*   */
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Login Box  */
+
+.login-box {
+  border-radius: 12px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 40rem;
+  height: 60rem;
+  background-color: rgb(251, 251, 251);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  row-gap: 2.4rem;
+  column-gap: 2.4rem;
+  padding: 5rem;
+}
+
+/* Login Box: Number Pad  */
+
+.numpad {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.numpad-button {
+  border: none;
+  border-radius: 10px;
+  background-color: var(--bgColor);
+  color: #444;
+  font-size: 2.8rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  transition: 0.1s all;
+}
+
+.numpad-button:active {
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 8px 64px;
+  color: white;
+  background-color: black;
+}
+
+.pin-area {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1.2rem;
+  background-color: var(--bgColor);
+}
+
+.pin-field {
+  background-color: white;
+  border: none;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  
+}
+
+/*  */
