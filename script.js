@@ -10,6 +10,8 @@
 const inputs = document.querySelectorAll(".pin-field");
 const loginForm = document.querySelector(".pin-area");
 const buttons = document.querySelectorAll(".numpad-button");
+const body = document.querySelector("body");
+const logo = document.querySelector(".logo");
 let cursorLocation = 0;
 let pin = "";
 
@@ -31,6 +33,10 @@ const users = [
     code: "0000",
   },
 ];
+
+body.addEventListener("click", () => {
+  logo.classList.toggle("hidden");
+});
 
 /* ********************************** */
 /* PIN Code Input Field Functionality */
