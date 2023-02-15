@@ -1,27 +1,36 @@
-const inputs = document.querySelectorAll("input");
-const loginForm = document.querySelector("form");
+/* 
+  Things to do differently:
+  inputs should really be called inputFields
+  Using a global variable to track the current
+  position of the input field would have been
+  significantly easier than looping through
+  - May refactor later
+*/
+
+const inputs = document.querySelectorAll(".pin-field");
+const loginForm = document.querySelector(".pin-area");
+const buttons = document.querySelectorAll(".numpad-button");
+let cursorLocation = 0;
 let pin = "";
 
 const users = [
   {
     name: "tristan",
-    code: 9999,
+    code: "9999",
   },
   {
     name: "tyler",
-    code: 2222,
+    code: "2222",
   },
   {
     name: "scott",
-    code: 1111,
+    code: "1111",
   },
   {
     name: "dillon",
-    code: 0000,
+    code: "0000",
   },
 ];
-
-console.log(inputs);
 
 /* ********************************** */
 /* PIN Code Input Field Functionality */
@@ -30,31 +39,74 @@ console.log(inputs);
 /* 1.) Event Listeners */
 /* Initialize event listeners to switch focus to next input field */
 inputs.forEach((input, key) => {
-  if (key !== 0) {
-    input.addEventListener("click", function () {
-      inputs[0].focus();
-    });
-  }
-});
-
-/* Initialize event listeners to get values from input fields as a string, and reset the field */
-inputs.forEach((input, key) => {
-  input.addEventListener("keyup", function () {
-    if (input.value) {
-      if (key === 3) {
-        for (input of inputs) {
-          pin = `${pin}${input.value}`;
-        }
-        this.form.reset();
-        inputs[0].focus();
-      } else {
-        inputs[key + 1].focus();
+  input.addEventListener("click", function () {
+    for (let i = 0; i < inputs.length; i++) {
+      if (!inputs[i].value) {
+        inputs[i].focus();
+        break;
       }
     }
   });
 });
 
-/* 2.) Functions */
-console.log(users);
+/* Initialize event listeners to backspace prior field */
+inputs.forEach((input, key) => {
+  input.addEventListener("keydown", function (event) {
+    if (inputs[cursorLocation - 1] && event.key === "Backspace") {
+      inputs[cursorLocation - 1].focus();
+      inputs[cursorLocation - 1].value = "";
+      if (cursorLocation !== 0) {
+        cursorLocation--;
+      }
+    }
+  });
+});
 
-/* Code to */
+/* Initialize event listeners to get values from input fields as a string, and reset the active field */
+inputs.forEach((input, key) => {
+  input.addEventListener("keyup", function (event) {
+    if (input.value) {
+      if (key === 3) {
+        pin = getPinFromInputField(inputs);
+        this.form.reset();
+        inputs[0].focus();
+        cursorLocation = 0;
+        login(pin);
+      } else {
+        inputs[key + 1].focus();
+        cursorLocation++;
+      }
+    }
+  });
+});
+
+/* Event Listener for the on-screen numpad buttons */
+buttons.forEach((button, key) => {
+  button.addEventListener("click", function (event) {});
+});
+
+/* 2.) Functions */
+const login = function (pin) {
+  if (isIn(users, pin)) {
+    console.log("Logged in");
+  } else {
+    console.log("PIN Not Found");
+    pin = "";
+  }
+};
+
+const isIn = function (arr, item) {
+  for (let i = 0; i < arr.length; i++) {
+    let { code } = arr[i];
+    if (code === item) return true;
+  }
+  return false;
+};
+
+const getPinFromInputField = (inputs) => {
+  let pin = "";
+  for (input of inputs) {
+    pin = `${pin}${input.value}`;
+  }
+  return pin;
+};

@@ -25,6 +25,10 @@ html {
 
 /*   */
 
+.hidden {
+  display: none;
+}
+
 .container {
   width: 100vw;
   height: 100vh;
@@ -63,7 +67,7 @@ html {
   color: #444;
   font-size: 2.8rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-  transition: 0.5s all;
+  transition: 0.5s transform;
   /* border: 1px solid black; */
 }
 
