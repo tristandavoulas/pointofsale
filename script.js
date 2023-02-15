@@ -81,8 +81,24 @@ inputs.forEach((input, key) => {
 });
 
 /* Event Listener for the on-screen numpad buttons */
+// buttons.forEach((button, key) => {
+//   button.addEventListener("click", function (event) {});
+// });
+
+/* Event Listeners for le buttons */
 buttons.forEach((button, key) => {
-  button.addEventListener("click", function (event) {});
+  button.addEventListener("click", () => {
+    inputs[cursorLocation].value = button.textContent;
+    if (cursorLocation === 3) {
+      pin = getPinFromInputField(inputs);
+      login(pin);
+      inputs[0].form.reset();
+      inputs[0].focus();
+      cursorLocation = 0;
+    } else {
+      cursorLocation++;
+    }
+  });
 });
 
 /* 2.) Functions */
