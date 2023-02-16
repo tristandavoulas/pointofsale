@@ -10,6 +10,7 @@
 const inputs = document.querySelectorAll(".pin-field");
 const loginForm = document.querySelector(".pin-area");
 const buttons = document.querySelectorAll(".numpad-button");
+const numpad = document.querySelector(".login-box");
 const body = document.querySelector("body");
 const logo = document.querySelector(".logo");
 let cursorLocation = 0;
@@ -33,6 +34,13 @@ const users = [
     code: "0000",
   },
 ];
+
+/* ********************************** */
+/* Miscellaneous Event Listeners */
+/* ********************************** */
+logo.addEventListener("animationend", () => {
+  console.log("Animation end");
+});
 
 /* ********************************** */
 /* PIN Code Input Field Functionality */
@@ -109,11 +117,18 @@ const login = function (pin) {
     users.find((item) => {
       return pin === item.code;
     })
-  )
+  ) {
     console.log("Logged in");
-  else {
-    console.log("No");
+    loggedIn();
+    return true;
   }
+  return false;
+};
+
+const loggedIn = () => {
+  console.log(numpad);
+  numpad.classList.toggle("hidden");
+  logo.classList.toggle("show");
 };
 
 const getPinFromInputField = (inputs) => {
