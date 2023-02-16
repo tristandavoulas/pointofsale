@@ -28,13 +28,13 @@ html {
 
 /*   */
 
+
 .hidden {
-  display: none !important;
+  display: none;
 }
 
 .logo {
-  animation: fadeIn 5s;
-  transition: all 2s;
+  transition: 0.3s all;
 }
 
 .logo-clicked {

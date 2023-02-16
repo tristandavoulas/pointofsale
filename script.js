@@ -34,10 +34,6 @@ const users = [
   },
 ];
 
-body.addEventListener("click", () => {
-  logo.classList.toggle("hidden");
-});
-
 /* ********************************** */
 /* PIN Code Input Field Functionality */
 /* ********************************** */
@@ -109,20 +105,15 @@ buttons.forEach((button, key) => {
 
 /* 2.) Functions */
 const login = function (pin) {
-  if (isIn(users, pin)) {
+  if (
+    users.find((item) => {
+      return pin === item.code;
+    })
+  )
     console.log("Logged in");
-  } else {
-    console.log("PIN Not Found");
-    pin = "";
+  else {
+    console.log("No");
   }
-};
-
-const isIn = function (arr, item) {
-  for (let i = 0; i < arr.length; i++) {
-    let { code } = arr[i];
-    if (code === item) return true;
-  }
-  return false;
 };
 
 const getPinFromInputField = (inputs) => {
