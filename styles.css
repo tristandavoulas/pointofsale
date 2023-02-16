@@ -1,3 +1,6 @@
+/* Colors */
+/* Pete's Red: #b5121b */
+
 * {
   margin: 0;
   padding: 0;
@@ -23,10 +26,92 @@ html {
   grid-column-end: -1;
 }
 
+/* Animations  */
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  0.001% {
+    opacity: 0.001;
+    display: block;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+    display: none;
+  }
+  0.001% {
+    display: block;
+    opacity: 0.001;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+    display: none;
+    z-index: -1;
+  }
+  0.001% {
+    opacity: 0.001;
+    display: block;
+    z-index: 0;
+  }
+  50% {
+    opacity: 1;
+    display: block;
+    z-index: 0;
+  }
+  99.99% {
+    opacity: 0.001;
+    display: block;
+    z-index: 0;
+  }
+  100% {
+    display: none;
+    opacity: 0;
+    z-index: -1;
+  }
+}
+
 /*   */
+.show {
+  animation-name: fade-in-out;
+  animation-duration: 2.5s;
+  animation-fill-mode: forwards;
+}
+
+.no-opacity {
+  opacity: 0;
+  z-index: -1;
+}
 
 .hidden {
-  display: none;
+  display: none !important;
+}
+
+.logo {
+  transition: 1s all;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo-clicked {
+  display: block;
 }
 
 .container {
@@ -46,19 +131,15 @@ html {
   height: 60rem;
   background-color: rgb(251, 251, 251);
   display: grid;
+  padding: 5rem;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: repeat(5, 1fr);
   row-gap: 2.4rem;
   column-gap: 2.4rem;
-  padding: 5rem;
+  position: relative;
 }
 
 /* Login Box: Number Pad  */
-
-.numpad {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-}
 
 .numpad-button {
   border: none;
@@ -68,6 +149,7 @@ html {
   font-size: 2.8rem;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   transition: 0.5s transform;
+  text-align: center;
   /* border: 1px solid black; */
 }
 
