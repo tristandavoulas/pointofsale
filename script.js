@@ -13,6 +13,8 @@ const buttons = document.querySelectorAll(".numpad-button");
 const numpad = document.querySelector(".login-box");
 const body = document.querySelector("body");
 const logo = document.querySelector(".logo");
+const appBody = document.querySelector(".app-body");
+const categoriesHTML = document.querySelector(".categories");
 let cursorLocation = 0;
 let pin = "";
 
@@ -35,11 +37,13 @@ const users = [
   },
 ];
 
+// appBody.classList.toggle("hidden");
 /* ********************************** */
 /* Miscellaneous Event Listeners */
 /* ********************************** */
 logo.addEventListener("animationend", () => {
   console.log("Animation end");
+  appBody.classList.toggle("hidden");
 });
 
 /* ********************************** */
@@ -138,3 +142,73 @@ const getPinFromInputField = (inputs) => {
   }
   return pin;
 };
+
+/* ****************************** */
+
+const pizzas = {
+  categoryName: "Pizza",
+};
+
+const appetizers = {
+  categoryName: "Appetizers",
+};
+
+const sandwiches = {
+  categoryName: "Sandwiches",
+};
+
+const pasta = {
+  categoryName: "Pasta",
+};
+
+const saladSoup = {
+  categoryName: "Salad & Soup",
+};
+
+const burgsnfavs = {
+  categoryName: "Burgers & House Favorites",
+};
+
+const kidsMenu = {
+  categoryName: "Kids Menu",
+};
+
+const drinks = {
+  categoryName: "Beverages",
+};
+
+const beer = {
+  categoryName: "Beer",
+};
+
+const wine = {
+  categoryName: "Wine",
+};
+
+const categories = [
+  pizzas,
+  appetizers,
+  sandwiches,
+  pasta,
+  saladSoup,
+  burgsnfavs,
+  kidsMenu,
+  drinks,
+  beer,
+  wine,
+];
+console.log(categories);
+
+/* Initialize menu item categories*/
+for (category of categories) {
+  const categoryHTML = document.createElement("div");
+  categoryHTML.classList.add("category");
+  categoryHTML.innerHTML = `<span class='category-text'>${category.categoryName}</span>`;
+  categoriesHTML.appendChild(categoryHTML);
+
+  // `<div class="category">
+  //   <span class="category-text">${category.categoryName}</span>
+  // </div>`;
+  // categoriesHTML.append(
+  // );
+}
