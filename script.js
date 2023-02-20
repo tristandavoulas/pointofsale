@@ -4,6 +4,7 @@
   Using a global variable to track the current
   position of the input field would have been
   significantly easier than looping through
+  Write function to add multiple classes to an HTML Element in one line
   - May refactor later
 */
 
@@ -15,6 +16,7 @@ const body = document.querySelector("body");
 const logo = document.querySelector(".logo");
 const appBody = document.querySelector(".app-body");
 const categoriesHTML = document.querySelector(".categories");
+const items = document.querySelector(".items");
 let cursorLocation = 0;
 let pin = "";
 
@@ -63,7 +65,7 @@ inputs.forEach((input, key) => {
   });
 });
 
-/* Initialize event listeners to backspace prior field */
+/* Initialize event listener to backspace prior field */
 inputs.forEach((input, key) => {
   input.addEventListener("keydown", function (event) {
     if (inputs[cursorLocation - 1] && event.key === "Backspace") {
@@ -76,7 +78,7 @@ inputs.forEach((input, key) => {
   });
 });
 
-/* Initialize event listeners to get values from input fields as a string, and reset the active field */
+/* Initialize event listener to get values from input fields as a string, and reset the active field */
 inputs.forEach((input, key) => {
   input.addEventListener("keyup", function (event) {
     if (input.value) {
@@ -147,6 +149,21 @@ const getPinFromInputField = (inputs) => {
 
 const pizzas = {
   categoryName: "Pizza",
+  item: {
+    petesCombo: {
+      displayName: `Pete's Combo`,
+      ingredientsMeat: [
+        "pepperoni",
+        "sausage linguica",
+        "italian sausage",
+        "salami",
+        "ham",
+      ],
+      ingredientsVegs: ["bell peppers", "olives black", "artichoke hearts"],
+      ingredientsCheese: [],
+      ingredientsDairy: [],
+    },
+  },
 };
 
 const appetizers = {
@@ -199,16 +216,20 @@ const categories = [
 ];
 console.log(categories);
 
-/* Initialize menu item categories*/
+/* Initialize Category Button HTML Elements */
 for (category of categories) {
   const categoryHTML = document.createElement("div");
-  categoryHTML.classList.add("category");
-  categoryHTML.innerHTML = `<span class='category-text'>${category.categoryName}</span>`;
+  categoryHTML.classList.add("button");
+  categoryHTML.innerHTML = `<span class='button-text'>${category.categoryName}</span>`;
   categoriesHTML.appendChild(categoryHTML);
+}
 
-  // `<div class="category">
-  //   <span class="category-text">${category.categoryName}</span>
-  // </div>`;
-  // categoriesHTML.append(
-  // );
+/* Event Listeners for Category buttons to show Items when clicked on */
+for (category of categoriesHTML.children) {
+  category.addEventListener("click", () => {
+    const ingredientHTML = document.createElement("div");
+    ingredientHTML.classList.add("button");
+    ingredientHTML.innerHTML = `<span class='button-text'>Test</span>`;
+    items.appendChild(ingredientHTML);
+  });
 }
