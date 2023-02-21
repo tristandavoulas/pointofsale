@@ -5,6 +5,7 @@
   position of the input field would have been
   significantly easier than looping through
   Write function to add multiple classes to an HTML Element in one line
+  Create a class for the generic category objects
   - May refactor later
 */
 
@@ -124,7 +125,6 @@ const login = function (pin) {
       return pin === item.code;
     })
   ) {
-    console.log("Logged in");
     loggedIn();
     return true;
   }
@@ -146,22 +146,31 @@ const getPinFromInputField = (inputs) => {
 };
 
 /* ****************************** */
-
+/* Initialize variables to store data on each type of menu item, and each menu item */
 const pizzas = {
   categoryName: "Pizza",
   item: {
     petesCombo: {
       displayName: `Pete's Combo`,
-      ingredientsMeat: [
-        "pepperoni",
-        "sausage linguica",
-        "italian sausage",
-        "salami",
-        "ham",
-      ],
-      ingredientsVegs: ["bell peppers", "olives black", "artichoke hearts"],
-      ingredientsCheese: [],
-      ingredientsDairy: [],
+      ingredients: {
+        meat: [
+          "pepperoni",
+          "sausage linguica",
+          "italian sausage",
+          "salami",
+          "ham",
+        ],
+        veg: ["bell peppers", "olives black", "artichoke hearts"],
+        dairy: ["mozzarella"],
+      },
+    },
+    petesItalianGarlic: {
+      displayName: `Pete's Italian Garlic`,
+      ingredients: {
+        meat: ["sausage linguica", "sausage italian"],
+        veg: ["mushrooms", "tomatoes", "onions green"],
+        dairy: ["mozzarella"],
+      },
     },
   },
 };
@@ -214,22 +223,53 @@ const categories = [
   beer,
   wine,
 ];
-console.log(categories);
+
+/* A "Category" Contains data on each menu item, it's ingredients, and a string containing it's display name
+to be used when creating HTML buttons */
+class Category {
+  constructor() {
+    this.categoryName = ``;
+  }
+}
 
 /* Initialize Category Button HTML Elements */
-for (category of categories) {
+for (let categoryElement of categories) {
   const categoryHTML = document.createElement("div");
   categoryHTML.classList.add("button");
-  categoryHTML.innerHTML = `<span class='button-text'>${category.categoryName}</span>`;
+  categoryHTML.innerHTML = `<span class='button-text'>${categoryElement.categoryName}</span>`;
   categoriesHTML.appendChild(categoryHTML);
 }
 
 /* Event Listeners for Category buttons to show Items when clicked on */
-for (category of categoriesHTML.children) {
-  category.addEventListener("click", () => {
-    const ingredientHTML = document.createElement("div");
-    ingredientHTML.classList.add("button");
-    ingredientHTML.innerHTML = `<span class='button-text'>Test</span>`;
-    items.appendChild(ingredientHTML);
+for (let categoryElement of categoriesHTML.children) {
+  categoryElement.addEventListener("click", () => {
+    items.innerHTML = "";
+    createButtonFromDisplayName(categoryElement, categories);
+    // for (let category of categories) {
+    //   if (categoryElement.textContent === category.categoryName) {
+    //     for (let propertyName in category.item) {
+    //       console.log(`${pizzas.item[propertyName].displayName}`);
+    //     }
+    //   }
+    // }
   });
+}
+
+for (const property in pizzas.item) {
+  console.log(pizzas.item[property].displayName);
+}
+
+function createButtonFromDisplayName(element, categoriesArr) {
+  for (let category of categoriesArr) {
+    if (element.textContent === category.categoryName) {
+      console.log("click");
+      for (let propertyName in category.item) {
+        const displayName = `${category.item[propertyName].displayName}`;
+        const newButton = document.createElement("div");
+        newButton.classList.add("button");
+        newButton.innerHTML = `<span class="button-text">${displayName}</span>`;
+        items.appendChild(newButton);
+      }
+    }
+  }
 }

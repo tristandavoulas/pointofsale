@@ -243,6 +243,7 @@ html {
   border-radius: 15px;
   overflow: scroll;
   scrollbar-width: none;
+  width: 25rem;
 }
 
 .categories {
