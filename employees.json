@@ -1,0 +1,11 @@
+[
+  {
+    "name": "tristan",
+    "pin": "9999",
+    "birthday": "10/28/96",
+    "hireDate": "07/01/17",
+    "position": "pizza",
+    "payrate": 15.5,
+    "payrateBonus": 2
+  }
+]
