@@ -1,0 +1,22 @@
+[
+  {
+    "categoryName": "pizzas",
+    "items": {
+      "Pete`s Combo": {
+        "ingredients": {
+          "meat": [
+            "pepperoni",
+            "sausage linguica",
+            "italian sausage",
+            "salami",
+            "ham"
+          ],
+          "veg": ["bell peppers", "olives black", "artichoke hearts"],
+          "dairy": ["mozzarella"],
+          "seasoning": [],
+          "modifiers": []
+        }
+      }
+    }
+  }
+]

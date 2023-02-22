@@ -22,14 +22,101 @@ class employee {
   }
 }
 
-let employees = fetch("employees.json")
-  .then(function (response) {
-    return response.json();
-  })
-  .then(function (obj) {
-    employees = obj;
-  });
+/* ****************************** */
+/* Initialize variables to store data on each type of menu item, and each menu item */
 
+class menuCategory {
+  constructor(_name) {
+    this.name = _name;
+    this.items = {};
+  }
+
+  createMenuItem(_name, _type) {
+    const item = new menuItem(_name, _type);
+    if (this.items[_name]) {
+      console.log("Menu item already exists, doing nothing");
+      return;
+    }
+    this.items[_name] = item;
+    console.log(`New menu item (${_name}) created`);
+  }
+
+  /* This function returns an array containing each menu item variables name as a string */
+  getMenuItemsStrings() {
+    const names = [];
+    for (let name in this.items) {
+      names.push(name);
+    }
+    return names;
+  }
+}
+
+class menuItem {
+  constructor(_name, _type) {
+    this.name = _name;
+    this.type = _type;
+    this.ingredients = {};
+
+    if (this.type === "food") {
+      this.ingredients.meat = [];
+      this.ingredients.veg = [];
+      this.ingredients.dairy = [];
+      this.ingredients.seasoning = [];
+      this.modifiers = [];
+    }
+  }
+
+  addMeat(meatToAdd) {
+    this.ingredients.meat.push(`${meatToAdd}`);
+  }
+
+  addIngredient(_name, _type) {
+    this.ingredients[_type].push(`${_name}`);
+  }
+}
+
+let menuCategories = [];
+let employees;
+let menu;
+
+// fetch("employees.json")
+//   .then(function (response) {
+//     return response.json();
+//   })
+//   .then((data) => {
+//     console.log(data);
+//     employees = data;
+//   })
+//   .catch(function (error) {
+//     console.log("Something went wrong retrieving employees.json");
+//   });
+
+// fetch("menu.json")
+//   .then((response) => {
+//     return response.json();
+//   })
+//   .then((data) => {
+//     menu = data;
+//   })
+//   .catch(function (error) {
+//     console.log("Something went wrong retrieving menu.json");
+//   });
+
+const getEmployeeData = async () => {
+  const response = await fetch("employees.json");
+  const data = await response.json();
+  return data;
+};
+getEmployeeData().then((data) => console.log("resolved: ", data));
+
+/* A "Category" Contains data on each menu item, it's ingredients, and a string containing it's display name
+  to be used when creating HTML buttons */
+class Category {
+  constructor(_name, _items) {
+    this.categoryName = `${_name}`;
+    this.items = [..._items];
+  }
+}
 /* ********************************** */
 /* Miscellaneous Event Listeners */
 /* ********************************** */
@@ -131,149 +218,13 @@ const getPinFromInputField = (inputs) => {
   return pin;
 };
 
-/* ****************************** */
-/* Initialize variables to store data on each type of menu item, and each menu item */
-
-class menuCategory {
-  constructor(_name) {
-    this.name = _name;
-    this.items = {};
-  }
-
-  createMenuItem(_name, _type) {
-    const item = new menuItem(_name, _type);
-    if (this.items[_name]) {
-      console.log("Menu item already exists, doing nothing");
-      return;
-    }
-    this.items[_name] = item;
-    console.log(`New menu item (${_name}) created`);
-  }
-
-  /* This function returns an array containing each menu item variables name as a string */
-  getMenuItemsStrings() {
-    const names = [];
-    for (let name in this.items) {
-      names.push(name);
-    }
-    return names;
-  }
-}
-
-class menuItem {
-  constructor(_name, _type) {
-    this.name = _name;
-    this.type = _type;
-    this.ingredients = {};
-
-    if (this.type === "food") {
-      this.ingredients.meat = [];
-      this.ingredients.veg = [];
-      this.ingredients.dairy = [];
-      this.ingredients.seasoning = [];
-      this.modifiers = [];
-    }
-  }
-
-  addMeat(meatToAdd) {
-    this.ingredients.meat.push(`${meatToAdd}`);
-  }
-
-  addIngredient(_name, _type) {
-    this.ingredients[_type].push(`${_name}`);
-  }
-}
-
-let menuCategories = [];
-const pizzas = new menuCategory("Pizzas");
-const appetizers = new menuCategory("Appetizers");
-const sandwiches = new menuCategory("Sandwiches");
-const pasta = new menuCategory("Pasta");
-const soupsnsalads = new menuCategory("Soups & Salads");
-const burgsnfavs = new menuCategory("Burgers & House Favorites");
-const kidsMenu = new menuCategory("Kids Menu");
-const drinks = new menuCategory("Beverages");
-const beer = new menuCategory("Beer");
-const wine = new menuCategory("Wine");
-
-/* Initialize menu items */
-
-const pizzasOld = {
-  categoryName: "Pizza",
-  item: {
-    petesCombo: {
-      displayName: `Pete's Combo`,
-      ingredients: {
-        meat: [
-          "pepperoni",
-          "sausage linguica",
-          "italian sausage",
-          "salami",
-          "ham",
-        ],
-        veg: ["bell peppers", "olives black", "artichoke hearts"],
-        dairy: ["mozzarella"],
-        seasoning: [],
-      },
-    },
-    petesItalianGarlic: {
-      displayName: `Pete's Italian Garlic`,
-      ingredients: {
-        meat: ["sausage linguica", "sausage italian"],
-        veg: ["mushrooms", "tomatoes", "onions green"],
-        dairy: ["mozzarella"],
-        seasoning: ["italian herbs"],
-      },
-    },
-    petesChickenCombo: {
-      displayName: `Pete's Chicken Combo`,
-      ingredients: {
-        meat: ["chicken breast", "bacon"],
-        veg: ["onions red artichoke"],
-        dairy: ["mozzarella"],
-        seasoning: ["italian herbs"],
-      },
-    },
-    petesAllMeat: {
-      displayName: `Pete's All-Meat`,
-      ingredients: {
-        meat: ["pepperoni", "salami", "ham"],
-        veg: ["onions red artichoke"],
-        dairy: ["mozzarella"],
-        seasoning: ["italian herbs"],
-      },
-    },
-  },
-};
-
-const categories = [
-  pizzas,
-  appetizers,
-  sandwiches,
-  pasta,
-  soupsnsalads,
-  burgsnfavs,
-  kidsMenu,
-  drinks,
-  beer,
-  wine,
-];
-
-/* A "Category" Contains data on each menu item, it's ingredients, and a string containing it's display name
-to be used when creating HTML buttons */
-class Category {
-  constructor() {
-    this.categoryName = ``;
-  }
-}
-
 /* Initialize Category Button HTML Elements */
-for (let categoryElement of categories) {
-  const categoryHTML = document.createElement("div");
-  categoryHTML.classList.add("button");
-  categoryHTML.innerHTML = `<span class='button-text'>${categoryElement.name}</span>`;
-  categoriesHTML.appendChild(categoryHTML);
-}
+// for (let categoryElement of categories) {
+//   const categoryHTML = document.createElement("div");
+//   categoryHTML.classList.add("button");
+//   categoryHTML.innerHTML = `<span class='button-text'>${categoryElement.name}</span>`;
+//   categoriesHTML.appendChild(categoryHTML);
+// }
 
 /* Event Listeners for Category buttons to show Items when clicked on */
 for (let categoryElement of categoriesHTML.children) {
